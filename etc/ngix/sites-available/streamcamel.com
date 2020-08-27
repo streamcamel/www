@@ -87,32 +87,102 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
+# The actual server serving files for www.streamcamel.com
 server {
-   gzip on;
-   gzip_disable "msie6";
-   gzip_vary on;
-   gzip_proxied any;
-   gzip_comp_level 6;
-   gzip_buffers 16 8k;
-   gzip_http_version 1.1;
-   gzip_types application/javascript application/rss+xml application/vnd.ms-fontobject application/x-font application/x-font-opentype application/x-font-otf application/x-font-truetype application/x-font-ttf application/x-javascript application/xhtml+xml application/xml font/opentype font/otf font/ttf image/svg+xml image/x-icon text/css text/javascript text/plain text/xml;
+	gzip on;
+	gzip_disable "msie6";
+	gzip_vary on;
+	gzip_proxied any;
+	gzip_comp_level 6;
+	gzip_buffers 16 8k;
+	gzip_http_version 1.1;
+	gzip_types application/javascript application/rss+xml application/vnd.ms-fontobject application/x-font application/x-font-opentype application/x-font-otf application/x-font-truetype application/x-font-ttf application/x-javascript application/xhtml+xml application/xml font/opentype font/otf font/ttf image/svg+xml image/x-icon text/css text/javascript text/plain text/xml;
 
-   server_name www.streamcamel.com;
-   add_header Access-Control-Allow-Origin *;
-   root /var/www/streamcamel.com;
-   index index.html;
+	server_name www.streamcamel.com;
+	add_header Access-Control-Allow-Origin *;
+	root /var/www/streamcamel.com;
+	index index.html;
 
-   set $fallback_file /index.html;
-   try_files $uri $fallback_file;
+	set $fallback_file /index.html;
+	try_files $uri $fallback_file;
 
-   location ~ \.php$ {
-       include snippets/fastcgi-php.conf;
-       fastcgi_pass unix:/run/php/php7.2-fpm.sock;
-   }
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+	}
 
-   location ~ /\.ht {
-       deny all;
-   }
+	location ~ /\.ht {
+		deny all;
+	}
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/implicitconversions.com-0001/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/implicitconversions.com-0001/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+# Same as www.streamcamel.com, but for dev and staging.
+server {
+	gzip on;
+	gzip_disable "msie6";
+	gzip_vary on;
+	gzip_proxied any;
+	gzip_comp_level 6;
+	gzip_buffers 16 8k;
+	gzip_http_version 1.1;
+	gzip_types application/javascript application/rss+xml application/vnd.ms-fontobject application/x-font application/x-font-opentype application/x-font-otf application/x-font-truetype application/x-font-ttf application/x-javascript application/xhtml+xml application/xml font/opentype font/otf font/ttf image/svg+xml image/x-icon text/css text/javascript text/plain text/xml;
+
+	server_name www.staging.streamcamel.com;
+	add_header Access-Control-Allow-Origin *;
+	root /var/www/staging.streamcamel.com;
+	index index.html;
+
+	set $fallback_file /index.html;
+	try_files $uri $fallback_file;
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+	}
+
+	location ~ /\.ht {
+		deny all;
+	}
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/implicitconversions.com-0001/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/implicitconversions.com-0001/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+	gzip on;
+	gzip_disable "msie6";
+	gzip_vary on;
+	gzip_proxied any;
+	gzip_comp_level 6;
+	gzip_buffers 16 8k;
+	gzip_http_version 1.1;
+	gzip_types application/javascript application/rss+xml application/vnd.ms-fontobject application/x-font application/x-font-opentype application/x-font-otf application/x-font-truetype application/x-font-ttf application/x-javascript application/xhtml+xml application/xml font/opentype font/otf font/ttf image/svg+xml image/x-icon text/css text/javascript text/plain text/xml;
+
+	server_name www.dev.streamcamel.com;
+	add_header Access-Control-Allow-Origin *;
+	root /var/www/dev.streamcamel.com;
+	index index.html;
+
+	set $fallback_file /index.html;
+	try_files $uri $fallback_file;
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+	}
+
+	location ~ /\.ht {
+		deny all;
+	}
 
     listen 443 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/implicitconversions.com-0001/fullchain.pem; # managed by Certbot
