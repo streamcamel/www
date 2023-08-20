@@ -3,6 +3,11 @@ Web Server Configuration
 
 The directory more or less mimicks the actually directory structure on the Ubuntu Linux server.
 
+## Installing
+```
+sudo apt install nginx
+```
+
 ## How to deploy
 1. Make a backup of the files you are going to edit on the server: 
    `sudo cp /etc/nginx/sites-availables/streamcamel.com /etc/nginx/sites-availables/streamcamel.com.bak`
