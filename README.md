@@ -10,8 +10,8 @@ sudo apt install nginx
 
 ## How to deploy
 1. Make a backup of the files you are going to edit on the server: 
-   `sudo cp /etc/nginx/sites-availables/streamcamel.com /etc/nginx/sites-availables/streamcamel.com.bak`
-1. Modify the file using your favorite editor: `sudo vi /etc/nginx/sites-availables/streamcamel.com`
+   `sudo cp /etc/nginx/sites-availables/streamcamel.com /etc/nginx/sites-available/streamcamel.com.bak`
+1. Modify the file using your favorite editor: `sudo vi /etc/nginx/sites-available/streamcamel.com`
 1. Test your configuration: `sudo nginx -t`, if correct, you will get this message:
    ```shell
    nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
